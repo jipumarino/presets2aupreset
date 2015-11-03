@@ -1,0 +1,24 @@
+ACE:
+  patches_base_dir: "/Library/Audio/Presets/u-he/ACE"
+Bazille:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Bazille"
+Diva:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Diva"
+Hive:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Hive"
+Satin:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Satin"
+TyrellN6:
+  patches_base_dir: "/Library/Audio/Presets/u-he/TyrellN6"
+Zebra2:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Zebra2"
+ZebraHZ:
+  patches_base_dir: "/Library/Audio/Presets/u-he/ZebraHZ"
+Zebralette:
+  patches_base_dir: "/Library/Audio/Presets/u-he/Zebralette"
+KarmaFX Synth:
+  patches_base_dir: "/Library/Application Support/KarmaFX/KarmaFX Synth/Patches"
+Aalto:
+  patches_base_dir: "/Users/<user>/Music/Madrona Labs/Aalto"
+Sunrizer:
+  patches_base_dir: "/Users/<user>/Library/Application Support/Beepstreet/Sunrizer/Banks/"

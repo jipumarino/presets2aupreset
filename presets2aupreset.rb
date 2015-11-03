@@ -4,10 +4,11 @@ require 'active_support/all'
 require 'json'
 require 'pathname'
 require 'plist'
+require 'yaml'
 
 class PresetConverter
 
-  PLUGINS_CONFIG = JSON.parse(File.read("config.json")).with_indifferent_access
+  PLUGINS_CONFIG = YAML.load_file("config.yml").with_indifferent_access
 
   def initialize(plugin)
     @plugin = plugin
