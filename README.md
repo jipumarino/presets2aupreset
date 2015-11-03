@@ -7,6 +7,7 @@ Convert AudioUnit plugins presets from various vendors to the standard aupreset 
 - Move converters classes to their own files
 - Nicer config solution than load_config?
 - Extract common code between grouping patches/banks
+- Validate directories existence
 
 # Pending plugins
 - SynthMaster2
