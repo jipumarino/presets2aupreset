@@ -65,9 +65,6 @@ class PresetConverter
     raise "Must implement method"
   end
 
-  def self.get_converter_class(plugin)
-  end
-
 end
 
 class PresetConverterInstantiator
