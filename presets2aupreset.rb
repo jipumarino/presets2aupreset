@@ -1,47 +1,13 @@
 #!/usr/bin/env ruby
 
-require 'plist'
-require 'zlib'
-require 'pathname'
 require 'active_support/all'
+require 'json'
+require 'pathname'
+require 'plist'
 
 class PresetConverter
 
-  PLUGINS_CONFIG = {
-    'ACE' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/ACE",
-    },
-    'Bazille' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/Bazille",
-    },
-    'Diva' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/Diva",
-    },
-    'Hive' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/Hive",
-    },
-    'TyrellN6' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/TyrellN6",
-    },
-    'Zebra2' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/Zebra2",
-    },
-    'ZebraHZ' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/ZebraHZ",
-    },
-    'Zebralette' => {
-      patches_base_dir: "/Library/Audio/Presets/u-he/Zebralette",
-    },
-    'KarmaFX Synth' => {
-      patches_base_dir: "/Library/Application Support/KarmaFX/KarmaFX Synth/Patches",
-    },
-    'Aalto' => {
-      patches_base_dir: "/Users/juan/Music/Madrona Labs/Aalto",
-    },
-    'Sunrizer' => {
-      patches_base_dir: "/Users/juan/Library/Application Support/Beepstreet/Sunrizer/Banks/",
-    },
-  }
+  PLUGINS_CONFIG = JSON.parse(File.read("config.json")).with_indifferent_access
 
   def initialize(plugin)
     @plugin = plugin
