@@ -104,6 +104,7 @@ class ACEPresetConverter < UhePresetConverter; end
 class BazillePresetConverter < UhePresetConverter; end
 class DivaPresetConverter < UhePresetConverter; end
 class HivePresetConverter < UhePresetConverter; end
+class SatinPresetConverter < UhePresetConverter; end
 class TyrellN6PresetConverter < UhePresetConverter; end
 class Zebra2PresetConverter < UhePresetConverter; end
 class ZebraHZPresetConverter < UhePresetConverter; end
