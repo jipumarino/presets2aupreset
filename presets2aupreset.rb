@@ -106,7 +106,10 @@ end
 
 class PresetConverterInstantiator
   def self.get_converter(plugin)
-    "#{plugin}PresetConverter".delete(" ").safe_constantize.new(plugin)
+    klass_name = "#{plugin}PresetConverter".delete(" ")
+    klass = klass_name.safe_constantize
+    raise "Missing converter class #{klass_name} for #{plugin}" if klass.nil?
+    klass.new(plugin)
   end
 end
 
@@ -126,7 +129,7 @@ class Zebra2PresetConverter < UhePresetConverter; end
 class ZebraHZPresetConverter < UhePresetConverter; end
 class ZebralettePresetConverter < UhePresetConverter; end
 
-class KarmaFXPresetConverter < PresetConverter
+class KarmaFXSynthPresetConverter < PresetConverter
   def load_config
     @grouping = :patches
     @extension = "kfx"
