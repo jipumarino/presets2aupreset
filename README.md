@@ -1,3 +1,5 @@
+Convert AudioUnit plugins presets from various vendors to the standard aupreset file format so they can be used with Ableton Live and other DAWs.
+
 # TODO
 - Ableton doesn't see Satin generated presets
 - Specify presets destination in command
