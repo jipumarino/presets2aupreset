@@ -7,21 +7,33 @@ require 'plist'
 require 'yaml'
 
 class PresetConverter
+  class_attribute :settings
 
   PLUGINS_CONFIG = YAML.load_file("config.yml").with_indifferent_access
 
   def initialize(plugin)
     @plugin = plugin
-    load_config
     @config = PLUGINS_CONFIG[@plugin]
     raise "Missing config for plugin #{@plugin}" if @config.nil?
+
+    @config.merge!(self.class.settings)
+
     @default_plist = Plist::parse_xml("default_aupresets/#{@plugin}.aupreset")
     raise "Missing default file for plugin #{@plugin}" if @default_plist.nil?
+
     @converted_base_dir = File.join(".", "converted", @plugin)
     @patches_base_dir = Pathname.new(@config[:patches_base_dir])
+
+    @extension = @config[:extension]
     raise "Missing extension for plugin #{@plugin}" if @extension.nil?
+
+    @data_field = @config[:data_field]
     raise "Missing data_field for plugin #{@plugin}" if @data_field.nil?
+
+    @bank_format = @config[:bank_format]
     raise "Invalid bank_format #{@bank_format} for plugin #{@plugin}" unless %i(plist).include?(@bank_format) || @bank_format.nil?
+
+    @grouping = @config[:grouping]
     raise "Invalid grouping #{@grouping} for plugin #{@plugin}" unless %i(patches banks).include?(@grouping)
   end
 
@@ -66,6 +78,10 @@ class PresetConverter
     raise "Must implement method"
   end
 
+  def self.config(hash)
+    self.settings = hash
+  end
+
 end
 
 class PresetConverterInstantiator
@@ -78,11 +94,11 @@ class PresetConverterInstantiator
 end
 
 class UhePresetConverter < PresetConverter
-  def load_config
-    @grouping = :patches
-    @extension = "h2p"
-    @data_field = "AM_STATE"
-  end
+  config(
+    grouping: :patches,
+    extension: "h2p",
+    data_field: "AM_STATE",
+  )
 end
 class ACEPresetConverter < UhePresetConverter; end
 class BazillePresetConverter < UhePresetConverter; end
@@ -94,20 +110,20 @@ class ZebraHZPresetConverter < UhePresetConverter; end
 class ZebralettePresetConverter < UhePresetConverter; end
 
 class KarmaFXSynthPresetConverter < PresetConverter
-  def load_config
-    @grouping = :patches
-    @extension = "kfx"
-    @data_field = "KFXS"
-    @binary = true
-  end
+  config(
+    grouping: :patches,
+    extension: "kfx",
+    data_field: "KFXS",
+    binary: true,
+  )
 end
 
 class AaltoPresetConverter < PresetConverter
-  def load_config
-    @grouping = :patches
-    @extension = "mlpreset"
-    @data_field = "jucePluginState"
-  end
+  config(
+    grouping: :patches,
+    extension: "mlpreset",
+    data_field: "jucePluginState",
+  )
 
   def patch_content_wrapper(content)
     '{"patch": ' + content + "}"
@@ -115,12 +131,12 @@ class AaltoPresetConverter < PresetConverter
 end
 
 class SunrizerPresetConverter < PresetConverter
-  def load_config
-    @grouping = :banks
-    @extension = "srb"
-    @data_field = "jucePluginState"
-    @bank_format = :plist
-  end
+  config(
+    grouping: :banks,
+    extension: "srb",
+    data_field: "jucePluginState",
+    bank_format: :plist,
+  )
 
   def patch_content_wrapper(content)
     content.to_plist
